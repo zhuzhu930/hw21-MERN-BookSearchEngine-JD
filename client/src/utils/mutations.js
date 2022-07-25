@@ -41,30 +41,6 @@ export const REMOVE_BOOK = gql`
   mutation removeBook(
     $bookId: ID!
   ) {
-    // how to remove this book?
+    removeBook(bookId: $bookId)
   }
 `;
-
-// export const ADD_COMMENT = gql`
-//   mutation addComment(
-//     $thoughtId: ID!
-//     $commentText: String!
-//     $commentAuthor: String!
-//   ) {
-//     addComment(
-//       thoughtId: $thoughtId
-//       commentText: $commentText
-//       commentAuthor: $commentAuthor
-//     ) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//         createdAt
-//       }
-//     }
-//   }
-// `;
