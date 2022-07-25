@@ -36,7 +36,7 @@ export const SAVE_BOOK = gql`
     }
   }
 `;
-
+// ? not so sure whether this one is right or not
 export const REMOVE_BOOK = gql`
   mutation removeBook(
     $bookId: ID!
