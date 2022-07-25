@@ -24,41 +24,47 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!, $thoughtAuthor: String!) {
-    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
+export const SAVE_BOOK = gql`
+  mutation saveBook($authors: [String]!, $description: String!, title: String!, bookId:String!, image: String!, link: String!) {
+    saveBook(authors: $authors, description: $description, title: $title, bookId: $bookId, image: $image, link: $link) {
+      authors
+      description
+      title
+      bookId
+      image
+      link
     }
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment(
-    $thoughtId: ID!
-    $commentText: String!
-    $commentAuthor: String!
+export const REMOVE_BOOK = gql`
+  mutation removeBook(
+    $bookId: ID!
   ) {
-    addComment(
-      thoughtId: $thoughtId
-      commentText: $commentText
-      commentAuthor: $commentAuthor
-    ) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
+    // how to remove this book?
   }
 `;
+
+// export const ADD_COMMENT = gql`
+//   mutation addComment(
+//     $thoughtId: ID!
+//     $commentText: String!
+//     $commentAuthor: String!
+//   ) {
+//     addComment(
+//       thoughtId: $thoughtId
+//       commentText: $commentText
+//       commentAuthor: $commentAuthor
+//     ) {
+//       _id
+//       thoughtText
+//       thoughtAuthor
+//       createdAt
+//       comments {
+//         _id
+//         commentText
+//         createdAt
+//       }
+//     }
+//   }
+// `;
