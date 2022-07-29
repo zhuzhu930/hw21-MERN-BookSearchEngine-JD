@@ -81,10 +81,10 @@ const SavedBooks = () => {
         },
         update: cache => {
           const data = cache.readQuery({ query: GET_ME });
-          const userDataCache = data.me;
-          const savedBooksCache = userDataCache.savedBooks;
-          const updatedBookCache = savedBooksCache.filter((book) => book.bookId !== bookId );
-          data.me.savedBooks = updatedBookCache; 
+          const userCache = data.me;
+          const savedCache = userCache.savedBooks;
+          const updatedCache = savedCache.filter((book) => book.bookId !== bookId );
+          data.me.savedBooks = updatedCache; 
           cache.writeQuery({
             query: GET_ME,
             data: {
