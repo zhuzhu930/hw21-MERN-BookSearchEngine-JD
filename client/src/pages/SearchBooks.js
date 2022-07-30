@@ -48,6 +48,7 @@ const SearchBooks = () => {
         authors: book.volumeInfo.authors || ['No author to display'],
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
+        link: book.volumeInfo.infoLink,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
@@ -106,7 +107,8 @@ const SearchBooks = () => {
     ]);
   } catch (err) {
     console.error(err);
-  }
+  }  
+}
 
   return (
     <>
@@ -170,7 +172,7 @@ const SearchBooks = () => {
       </Container>
     </>
   );
-}
+
 };
 
 export default SearchBooks;
