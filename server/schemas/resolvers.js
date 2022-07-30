@@ -8,7 +8,7 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-        .slect('-__v -password')
+        .select('-__v -password')
         return userData;
       }
       throw new AuthenticationError('You are not logged in');
@@ -20,7 +20,9 @@ const resolvers = {
       return User.findOne({ username }).populate('books');
     },
     books: async (parent, { username }) => {
-      const params = username ? { username } : {};
+      const params = username 
+                      ? { username } 
+                      : {};
       return Book.find(params).sort({ createdAt: -1 });
     },
     book: async (parent, { bookId }) => {
@@ -60,17 +62,7 @@ const resolvers = {
       // Return an `Auth` object that consists of the signed token and user's information
       return { token, user };
     },
-    // saveBook: async (parent, { authors, description, title, bookId, image, link }) => {
-    //   const book = await Book.create({ authors, description, title, bookId, image, link });
-
-    //   await User.findOneAndUpdate(
-    //     { email },
-    //     { $addToSet: { savedBooks: book._id } },
-    //     { new: true }
-    //   );
-
-    //   return book;
-    // },
+    // Save a book
     saveBook: async (parent, { book }, context) => {
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
@@ -82,6 +74,7 @@ const resolvers = {
       }
       throw new AuthenticationError('Please log in!')
     },
+    // Delete a book
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
@@ -91,7 +84,6 @@ const resolvers = {
           )
           return updatedUser;
       }
-      // return Book.findOneAndDelete({ _id: bookId });
     },
   },
 };
