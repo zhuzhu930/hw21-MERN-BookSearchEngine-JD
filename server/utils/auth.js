@@ -44,6 +44,31 @@ const secret = 'mysecretssshhhhhhh';
 const expiration = '2h';
 
 module.exports = {
+  // coming from authenticated routes
+  authMiddleware: function({ req }) {
+    // allow token to be sent via 3 ways
+    let token = req.query.token || req.headers.authorization || req.body.token;
+
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim()
+    }
+
+    if (!token) {
+      return req;
+    }
+
+    // verify token
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch {
+      return res.status(400).json({ message: 'invalid token!'})
+    }
+
+    // send to next
+    return req;
+  },
+
   signToken: function ({ email, username, _id }) {
     const payload = { email, username, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
