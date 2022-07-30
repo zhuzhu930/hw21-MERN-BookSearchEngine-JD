@@ -67,7 +67,7 @@ Please tell us the 3 simple steps for installing your app.
 ## Badges
 
 - ![Readme_Generator](https://img.shields.io/badge/Readme.md-Generator%20v1.0-blue)
-- ![Book Search Engine](https://img.shields.io/badge/Book%20Search%20Engine-MERN%20Stack-blue)
+- ![Book Search Engine](https://img.shields.io/badge/Book%20Search%20Engine-MERN%20Stack-brightgreen)
 
 ## Features
 
