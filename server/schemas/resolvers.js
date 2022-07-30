@@ -5,6 +5,14 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
   // Queries: 
   Query: {
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+        .slect('-__v -password')
+        return userData;
+      }
+      throw new AuthenticationError('You are not logged in');
+    },
     users: async () => {
       return User.find().populate('books');
     },
@@ -52,18 +60,38 @@ const resolvers = {
       // Return an `Auth` object that consists of the signed token and user's information
       return { token, user };
     },
-    saveBook: async (parent, { authors, description, title, bookId, image, link }) => {
-      const book = await Book.create({ authors, description, title, bookId, image, link });
+    // saveBook: async (parent, { authors, description, title, bookId, image, link }) => {
+    //   const book = await Book.create({ authors, description, title, bookId, image, link });
 
-      await User.findOneAndUpdate(
-        { email },
-        { $addToSet: { savedBooks: book._id } }
-      );
+    //   await User.findOneAndUpdate(
+    //     { email },
+    //     { $addToSet: { savedBooks: book._id } },
+    //     { new: true }
+    //   );
 
-      return book;
+    //   return book;
+    // },
+    saveBook: async (parent, { book }, context) => {
+      if (context.user) {
+        const updateUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: book }},
+          { new: true }
+        )
+        return updatedUser;
+      }
+      throw new AuthenticationError('Please log in!')
     },
-    removeBook: async (parent, { bookId }) => {
-      return Book.findOneAndDelete({ _id: bookId });
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: { bookId: bookId }}},
+          { new: true }
+          )
+          return updatedUser;
+      }
+      // return Book.findOneAndDelete({ _id: bookId });
     },
   },
 };
