@@ -23,7 +23,7 @@ const SearchBooks = () => {
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
-    return () => saveBookIds(savedBookIds);
+    return () => saveBookIds(savedBookIds)
   });
 
   // create method to search for books and set state on form submit
@@ -67,23 +67,9 @@ const SearchBooks = () => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
+  if (!token) {
       return false;
     }
-
-  //   try {
-  //     const response = await saveBook(bookToSave, token);
-
-  //     if (!response.ok) {
-  //       throw new Error('something went wrong!');
-  //     }
-
-  //     // if book successfully saves to user's account, save book id to state
-  //     setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   try {
     await saveBook({
@@ -108,9 +94,9 @@ const SearchBooks = () => {
   } catch (err) {
     console.error(err);
   }  
-}
+};
 
-  return (
+return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
         <Container>
@@ -172,7 +158,6 @@ const SearchBooks = () => {
       </Container>
     </>
   );
-
 };
 
 export default SearchBooks;
