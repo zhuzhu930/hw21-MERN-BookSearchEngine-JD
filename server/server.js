@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 // Adding the homeroute and send the index.html from the build folder: 
 
 // get all info
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
