@@ -62,6 +62,10 @@ Please tell us the 3 simple steps for installing your app.
 
     ---
 
+## Challenges
+
+I was able to figure out part of the app, however the login/signup form is not working properly. And because of this Heroku deployment is not done.
+
 ## 🏆 Miscellaneous
 
 ## Badges
