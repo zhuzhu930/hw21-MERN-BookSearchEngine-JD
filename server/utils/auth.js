@@ -45,28 +45,28 @@ const expiration = '2h';
 
 module.exports = {
   // coming from authenticated routes
-  authMiddleware: function({ request }) {
+  authMiddleware: function({ req }) {
     // allow token to be sent via 3 ways
-    let token = request.query.token || request.headers.authorization || request.body.token;
+    let token = req.query.token || req.headers.authorization || req.body.token;
 
-    if (request.headers.authorization) {
+    if (req.headers.authorization) {
       token = token.split(' ').pop().trim()
     }
 
     if (!token) {
-      return request;
+      return req;
     }
 
     // verify token
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      request.user = data;
+      req.user = data;
     } catch {
       return res.status(400).json({ message: 'This is an invalid token!'})
     }
 
     // send to next
-    return request;
+    return req;
   },
 
   signToken: function ({ email, username, _id }) {
